@@ -1178,6 +1178,11 @@ body.dark-mode .project-link-small:hover {
     .shader-background {
         pointer-events: none;
     }
+
+    /* Contact grid: stack to single column on mobile */
+    .contact-info {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
