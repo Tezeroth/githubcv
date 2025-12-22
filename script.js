@@ -111,30 +111,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ===== Skill Progress Animation =====
-const observerOptions = {
-    threshold: 0.5,
-    rootMargin: '0px 0px -100px 0px'
-};
-
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const progressBars = entry.target.querySelectorAll('.skill-progress');
-            progressBars.forEach(bar => {
-                const progress = bar.getAttribute('data-progress');
-                bar.style.width = progress + '%';
-            });
-            skillObserver.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-const skillsSection = document.querySelector('.skills');
-if (skillsSection) {
-    skillObserver.observe(skillsSection);
-}
-
 // ===== Fade In Animation on Scroll =====
 const fadeObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
