@@ -1,4 +1,7 @@
-/* ===== CSS Variables ===== */
+/* ===================================================================
+   CSS VARIABLES & THEME SYSTEM
+   Defines color schemes, spacing, shadows, and transitions
+   ================================================================ */
 :root {
     /* Theme colors - Purple (default) */
     --theme-primary: #8b5cf6;
@@ -25,7 +28,11 @@
     --transition: all 0.3s ease;
 }
 
-/* ===== Color Themes ===== */
+/* ===================================================================
+   COLOR THEMES
+   Four available themes: Purple, Orange, Teal, Blue
+   ================================================================ */
+
 /* Orange Theme */
 body.theme-orange {
     --theme-primary: #f97316;
@@ -59,7 +66,10 @@ body.theme-blue {
     --accent-color: #60a5fa;
 }
 
-/* ===== Dark Mode Variables ===== */
+/* ===================================================================
+   DARK MODE
+   Overrides light mode colors with dark variants
+   ================================================================ */
 body.dark-mode {
     /* Lighter theme colors for dark mode contrast */
     --theme-primary: #a78bfa;
@@ -98,7 +108,7 @@ body.dark-mode.theme-blue {
     --theme-secondary: #93c5fd;
 }
 
-/* ===== Dark Mode Specific Overrides ===== */
+/* Dark Mode - Specific Element Overrides */
 body.dark-mode .section-title {
     color: #ffffff;
 }
@@ -130,7 +140,10 @@ body.dark-mode .nav-link:hover {
     color: #60a5fa;
 }
 
-/* ===== Reset & Base Styles ===== */
+/* ===================================================================
+   RESET & BASE STYLES
+   Global resets and foundational styles
+   ================================================================ */
 * {
     margin: 0;
     padding: 0;
@@ -156,7 +169,10 @@ body {
     padding: 0 2rem;
 }
 
-/* ===== Navigation ===== */
+/* ===================================================================
+   NAVIGATION BAR
+   Fixed header with theme controls and mobile menu
+   ================================================================ */
 #navbar {
     position: fixed;
     top: 0;
