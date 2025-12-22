@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Thrift Store Volunteer Scheduler</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="print.css" media="print" />
+</head>
+<body>
+  <div id="app">
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="schedule">Schedule</button>
+      <button class="tab-btn" data-tab="availability">Availability</button>
+      <button class="tab-btn" data-tab="volunteers">Volunteers</button>
+      <button class="tab-btn" data-tab="export">Export/Print</button>
+    </nav>
+
+    <header class="topbar">
+      <div class="week-picker">
+        <button id="prev-week" aria-label="Previous week">‹</button>
+        <input type="date" id="week-start" />
+        <button id="next-week" aria-label="Next week">›</button>
+      </div>
+      <div class="legend">
+        <span class="pill a">A</span> Definitely Available
+        <span class="pill b">B</span> Prefer Not
+        <span class="pill c">C</span> Not Available
+      </div>
+      <button id="darkmode-btn" class="icon-btn" aria-label="Toggle dark mode" type="button">☾</button>
+    </header>
+
+    <!-- Schedule -->
+    <section class="tab-content active" id="tab-schedule">
+      <div style="display:flex;justify-content:flex-end;gap:8px;padding:6px 8px 0;">
+        <button id="auto-rota" style="border:1px solid var(--border);background:#fff;border-radius:6px;padding:6px 10px;font-size:13px;">Auto-sort rota</button>
+        <button id="clear-rota" style="border:1px solid var(--border);background:#fff;border-radius:6px;padding:6px 10px;font-size:13px;">Clear rota</button>
+      </div>
+      <div class="schedule-layout">
+        <aside class="volunteer-pool" id="volunteer-pool">
+          <!-- populated by JS -->
+        </aside>
+        <main class="schedule-grid" id="schedule-grid">
+          <!-- populated by JS -->
+        </main>
+      </div>
+    </section>
+
+    <!-- Availability -->
+    <section class="tab-content" id="tab-availability">
+      <div class="availability-layout">
+        <div class="availability-controls">
+          <label>
+            Volunteer
+            <select id="availability-volunteer-select"></select>
+          </label>
+        </div>
+        <div id="availability-grid" class="availability-grid">
+          <!-- populated by JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Volunteers -->
+    <section class="tab-content" id="tab-volunteers">
+      <div class="volunteers-layout">
+        <form id="volunteer-form" class="volunteer-form">
+          <input type="hidden" id="volunteer-id" />
+          <label>
+            Name
+            <input type="text" id="volunteer-name" required />
+          </label>
+          <label>
+            Color
+            <input type="color" id="volunteer-color" value="#3aa76d" />
+          </label>
+          <label>
+            Notes
+            <input type="text" id="volunteer-notes" placeholder="Optional" />
+          </label>
+          <div class="form-actions">
+            <button type="submit" id="save-volunteer">Save</button>
+            <button type="button" id="reset-volunteer">Clear</button>
+          </div>
+        </form>
+
+        <div class="volunteer-table-wrap">
+          <table class="volunteer-table" id="volunteer-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Notes</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Export / Print -->
+    <section class="tab-content" id="tab-export">
+      <div class="export-layout">
+        <div class="export-actions">
+          <button id="export-json">Export JSON</button>
+          <button id="export-csv">Export CSV</button>
+          <button id="print-rota">Print Rota</button>
+        </div>
+        <textarea id="export-output" readonly placeholder="Export output appears here"></textarea>
+      </div>
+    </section>
+
+
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

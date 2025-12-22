@@ -1,0 +1,339 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    color: #fff;
+    transition: background 0.5s ease;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .list-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .list-row {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    cursor: move;
+  }
+  .list-row:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  .list-row input[type="text"],
+  .list-row input[type="date"],
+  .list-row select {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 3px;
+  }
+  .list-row input[type="text"]:focus,
+  .list-row input[type="date"]:focus,
+  .list-row select:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .list-row label {
+    margin-right: 5px;
+    font-size: 0.9em;
+  }
+  .list-row .order-number {
+    width: 80px;
+  }
+  .list-row .name-details {
+    flex-grow: 1;
+    position: relative;
+  }
+  .list-row .expand-collapse {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 2px 5px;
+    font-size: 0.8em;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .list-row .expanded-input {
+    display: none;
+    width: 100%;
+    height: 100px;
+    margin-top: 5px;
+    resize: vertical;
+  }
+  .list-row .checkbox-group {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+  }
+  .list-row .checkbox-group label {
+    font-size: 0.8em;
+    margin-right: 10px;
+  }
+  .add-row-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  .tab-container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  .tab {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px 5px 0 0;
+  }
+  .tab.active {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .action-buttons button {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Order Processing</h1>
+  <div class="tab-container" id="tabContainer"></div>
+  <div class="list-container" id="listContainer"></div>
+  <button class="add-row-btn" onclick="addRow()">Add Row</button>
+  <div class="action-buttons">
+    <button onclick="saveToLocalStorage()">Save Session</button>
+    <button onclick="printSession()">Print</button>
+    <button onclick="deleteSession()">Delete Session</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+<script>
+const tabs = ['All', 'Ovnght', 'OOS', 'mon', 'tue', 'wed', 'thur', 'fri', 'long', 'comp'];
+const tabColors = {
+  'All': ['#1a1a2e', '#16213e'],
+  'Ovnght': ['#1e1a2e', '#2e163e'],
+  'OOS': ['#2e1a1a', '#3e1616'],
+  'mon': ['#1a2e1e', '#163e21'],
+  'tue': ['#2e2e1a', '#3e3e16'],
+  'wed': ['#1a1e2e', '#16213e'],
+  'thur': ['#2e1a2e', '#3e163e'],
+  'fri': ['#1a2e2e', '#163e3e'],
+  'long': ['#2e2e2e', '#3e3e3e'],
+  'comp': ['#2e1a1a', '#3e1616']
+};
+
+let currentTab = 'All';
+let listData = {};
+
+function createTabButtons() {
+  const tabContainer = document.getElementById('tabContainer');
+  tabs.forEach(tab => {
+    const button = document.createElement('button');
+    button.textContent = tab;
+    button.classList.add('tab');
+    button.onclick = () => switchTab(tab);
+    tabContainer.appendChild(button);
+  });
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.tab:nth-child(${tabs.indexOf(tab) + 1})`).classList.add('active');
+  renderList();
+  updateBackgroundColor();
+}
+
+function updateBackgroundColor() {
+  const [color1, color2] = tabColors[currentTab];
+  document.body.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+}
+
+function addRow() {
+  const newRow = {
+    dateOrdered: '',
+    orderNumber: '',
+    nameDetails: '',
+    status: 'All',
+    checkboxes: {
+      'ord?': false,
+      'c&T': false,
+      'pthrMst': false,
+      'Trlpkp': false,
+      'd': false,
+      'trstplt': false
+    }
+  };
+  
+  if (!listData[currentTab]) {
+    listData[currentTab] = [];
+  }
+  listData[currentTab].unshift(newRow);
+  renderList();
+}
+
+function renderList() {
+  const listContainer = document.getElementById('listContainer');
+  listContainer.innerHTML = '';
+  
+  const currentList = listData[currentTab] || [];
+  
+  currentList.forEach((item, index) => {
+    const row = document.createElement('div');
+    row.classList.add('list-row');
+    row.innerHTML = `
+      <label>Date ordered:
+        <input type="date" value="${item.dateOrdered}" onchange="updateField(${index}, 'dateOrdered', this.value)">
+      </label>
+      <label>Order Number:
+        <input type="text" class="order-number" value="${item.orderNumber}" maxlength="6" onchange="updateField(${index}, 'orderNumber', this.value)">
+      </label>
+      <div class="name-details">
+        <label>Name/details:
+          <input type="text" value="${item.nameDetails}" onchange="updateField(${index}, 'nameDetails', this.value)">
+        </label>
+        <button class="expand-collapse" onclick="toggleExpand(this)">▼</button>
+        <textarea class="expanded-input" onchange="updateField(${index}, 'nameDetails', this.value)">${item.nameDetails}</textarea>
+      </div>
+      <select onchange="moveItem(${index}, this.value)">
+        ${tabs.map(tab => `<option value="${tab}" ${item.status === tab ? 'selected' : ''}>${tab}</option>`).join('')}
+      </select>
+      <div class="checkbox-group">
+        ${Object.keys(item.checkboxes).map(checkbox => `
+          <label>
+            <input type="checkbox" ${item.checkboxes[checkbox] ? 'checked' : ''} onchange="updateCheckbox(${index}, '${checkbox}', this.checked)">
+            ${checkbox}
+          </label>
+        `).join('')}
+      </div>
+    `;
+    listContainer.appendChild(row);
+  });
+  
+  new Sortable(listContainer, {
+    animation: 150,
+    onEnd: function(evt) {
+      const item = listData[currentTab].splice(evt.oldIndex, 1)[0];
+      listData[currentTab].splice(evt.newIndex, 0, item);
+    }
+  });
+}
+
+function updateField(index, field, value) {
+  listData[currentTab][index][field] = value;
+}
+
+function updateCheckbox(index, checkbox, checked) {
+  listData[currentTab][index].checkboxes[checkbox] = checked;
+}
+
+function toggleExpand(button) {
+  const nameDetails = button.parentElement;
+  const expandedInput = nameDetails.querySelector('.expanded-input');
+  const regularInput = nameDetails.querySelector('input[type="text"]');
+  
+  if (expandedInput.style.display === 'none' || expandedInput.style.display === '') {
+    expandedInput.style.display = 'block';
+    expandedInput.value = regularInput.value;
+    button.textContent = '▲';
+  } else {
+    expandedInput.style.display = 'none';
+    regularInput.value = expandedInput.value;
+    button.textContent = '▼';
+  }
+}
+
+function moveItem(index, newTab) {
+  const item = listData[currentTab].splice(index, 1)[0];
+  item.status = newTab;
+  if (!listData[newTab]) {
+    listData[newTab] = [];
+  }
+  listData[newTab].push(item);
+  
+  if (confirm('Are you sure you want to move this item to the ' + newTab + ' tab?')) {
+    renderList();
+  } else {
+    listData[currentTab].splice(index, 0, item);
+    renderList();
+  }
+}
+
+function saveToLocalStorage() {
+  localStorage.setItem('orderProcessingData', JSON.stringify(listData));
+  alert('Session saved successfully!');
+}
+
+function loadFromLocalStorage() {
+  const savedData = localStorage.getItem('orderProcessingData');
+  if (savedData) {
+    listData = JSON.parse(savedData);
+    renderList();
+  }
+}
+
+function printSession() {
+  window.print();
+}
+
+function deleteSession() {
+  if (confirm('Are you sure you want to delete this session? This action cannot be undone.')) {
+    localStorage.removeItem('orderProcessingData');
+    listData = {};
+    renderList();
+  }
+}
+
+createTabButtons();
+switchTab('All');
+loadFromLocalStorage();
+</script>
+</body></html>

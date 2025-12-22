@@ -1,0 +1,13 @@
+@page { margin: 16mm; }
+* { box-sizing: border-box; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+.tabs, .topbar, .volunteer-pool, .export-layout, nav { display: none !important; }
+#tab-schedule { display: block !important; }
+.schedule-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.day-col { border: 1px solid #999; }
+.day-header { font-weight: 700; padding: 6px; border-bottom: 1px solid #999; }
+.shift { padding: 6px; }
+.assignment { border: 1px solid #666; background: #fff; }
+.assignment.warn { border-color: #c9a300; background: #fff; }
+.assignment.bad { border-color: #c62828; background: #fff; }
+

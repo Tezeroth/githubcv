@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Web Developer CV - HTML, CSS, JavaScript, A-Frame, WebXR, 3D Modeling">
+    <title>Tezz - Web Developer CV</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">Terence Honeyford</div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-controls">
+                <button class="theme-toggle" aria-label="Change color theme">
+                    <span class="theme-icon">🎨</span>
+                    <span class="theme-name">Purple</span>
+                </button>
+                <button class="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <span class="sun-icon">☀️</span>
+                    <span class="moon-icon">🌙</span>
+                </button>
+                <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- WebGL Shader Background -->
+        <canvas id="shaderCanvas" class="shader-background"></canvas>
+
+        <!-- Frosted Glass Content Card -->
+        <div class="hero-glass-card">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="greeting">Hello, I'm</span>
+                    <span class="name">Tezz</span>
+                </h1>
+                <p class="hero-subtitle">Web Developer | HTML • CSS • JavaScript • A-Frame • WebXR • 3D Modeling</p>
+                <p class="hero-description">
+                    Passionate about immersive web experiences, virtual reality environments, and 3D web technologies.
+                    Exploring the future of the web through WebXR and AI integration.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="TezzCV.pdf" class="btn btn-secondary" download>Download CV</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator">
+            <span>Scroll Down</span>
+            <div class="arrow-down"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>
+                        I'm an aspiring web developer with a foundation in HTML, CSS, and JavaScript.
+                        For the past few years, I've been obsessed with creating immersive web experiences using
+                        A-Frame and WebXR technologies, bringing virtual reality to the browser.
+                    </p>
+                    <p>
+                        My passion lies in 3D modeling and creating virtual reality environments. I maintain a
+                        portfolio on Sketchfab showcasing my 3D models, and I'm constantly exploring how emerging
+                        technologies like AI can enhance web-based VR experiences.
+                    </p>
+                    <p>
+                        I thrive in collaborative environments where I can discuss different approaches to challenges
+                        and contribute to innovative projects that require precision and attention to detail.
+                    </p>
+                </div>
+                <div class="about-highlights">
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🎯</div>
+                        <h3>Detail-Oriented</h3>
+                        <p>Committed to accuracy and precision in every project</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🤝</div>
+                        <h3>Collaborative</h3>
+                        <p>Friendly and open to discussing solutions</p>
+                    </div>
+                    <div class="highlight-card">
+                        <div class="highlight-icon">🥽</div>
+                        <h3>VR Enthusiast</h3>
+                        <p>Creating immersive WebVR and 3D experiences</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Core Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">HTML5</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">CSS3</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">JavaScript</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>3D & VR Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">A-Frame</span>
+                                <span class="skill-level">Advanced</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">World Building</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">3D Modeling</span>
+                                <span class="skill-level">Intermediate</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>Emerging Technologies</h3>
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Context Engineering</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">AI Integration</span>
+                                <span class="skill-level">Exploring</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="60"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Responsive Design</span>
+                                <span class="skill-level">Proficient</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="skills-tags">
+                <span class="tag">A-Frame Framework</span>
+                <span class="tag">Unity (VRChat)</span>
+                <span class="tag">WebXR</span>
+                <span class="tag">3D Modeling</span>
+                <span class="tag">Virtual Reality</span>
+                <span class="tag">Sketchfab</span>
+                <span class="tag">Semantic HTML</span>
+                <span class="tag">CSS Grid & Flexbox</span>
+                <span class="tag">ES6+ JavaScript</span>
+                <span class="tag">Responsive Design</span>
+                <span class="tag">Git & Version Control</span>
+                <span class="tag">WebGL Shaders</span>
+                <span class="tag">AI Exploration</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience & Projects</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>WebXR & A-Frame Development</h3>
+                        <span class="timeline-date">Recent Years</span>
+                        <p>Focused on creating immersive virtual reality experiences using A-Frame and WebXR technologies.</p>
+                        <ul>
+                            <li>Built interactive VR environments accessible through web browsers</li>
+                            <li>Developed 3D scenes and experiences using A-Frame framework</li>
+                            <li>Unified control systems for desktop, mobile, and VR headset compatibility</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>3D Modeling & Sketchfab Portfolio</h3>
+                        <span class="timeline-date">Ongoing</span>
+                        <p>Created and published 3D models for web-based virtual reality scenes.</p>
+                        <ul>
+                            <li>Developed 3D models optimized for web performance</li>
+                            <li>Maintained active portfolio on Sketchfab platform</li>
+                            <li>Integrated 3D assets into WebXR experiences</li>
+                            <li>Acquired tools and techniques for creating high-quality 3D assets</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>Web Development & AI Exploration</h3>
+                        <span class="timeline-date">2023 - Present</span>
+                        <p>Building responsive web applications with HTML, CSS, and JavaScript while exploring AI integration.</p>
+                        <ul>
+                            <li>Developed responsive, user-friendly web interfaces</li>
+                            <li>Explored AI technologies and their applications in web development</li>
+                            <li>Implemented modern JavaScript (ES6+) best practices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="pbrlighting.png" alt="WebXR Virtual Environment with PBR Lighting">
+                    </div>
+                    <div class="project-header">
+                        <h3>WebXR Virtual Environments</h3>
+                        <span class="project-tag">A-Frame • WebXR • JavaScript</span>
+                    </div>
+                    <p>Immersive virtual reality experiences built with A-Frame, accessible directly through web browsers without additional software.</p>
+                    <div class="project-features">
+                        <span>✓ VR Environments</span>
+                        <span>✓ Cross-Platform</span>
+                        <span>✓ Browser-Based</span>
+                    </div>
+                    <a href="https://tezeroth.github.io/PBR-and-Equirectangular-skybox-with-lights-/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Demo →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="3drobot.png" alt="3D Robot Model">
+                    </div>
+                    <div class="project-header">
+                        <h3>3D Model Portfolio</h3>
+                        <span class="project-tag">3D Modeling • Sketchfab</span>
+                    </div>
+                    <p>Collection of 3D models created for web-based VR applications, optimized for performance and visual quality.</p>
+                    <div class="project-features">
+                        <span>✓ Web-Optimized</span>
+                        <span>✓ Sketchfab Portfolio</span>
+                        <span>✓ VR-Ready Assets</span>
+                    </div>
+                    <a href="https://sketchfab.com/tezeroth" target="_blank" rel="noopener noreferrer" class="project-link">View Portfolio →</a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="rotatoolscreenshot.png" alt="Interactive Web Application Screenshot">
+                    </div>
+                    <div class="project-header">
+                        <h3>Interactive Web Applications</h3>
+                        <span class="project-tag">HTML • CSS • JavaScript</span>
+                    </div>
+                    <p>Responsive web applications built to solve real-world problems with modern UI/UX and practical functionality.</p>
+                    <div class="project-features">
+                        <span>✓ Real-World Solutions</span>
+                        <span>✓ Modern JavaScript</span>
+                        <span>✓ Responsive Design</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="websim/order_processing_interface/index.html" target="_blank" class="project-link-small">Order Processing Interface →</a>
+                        <a href="websim/real_time_interaction_recorder/index.html" target="_blank" class="project-link-small">Real-Time Interaction Recorder →</a>
+                        <a href="websim/volunteer_scheduler/index.html" target="_blank" class="project-link-small">Volunteer Scheduler →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p class="contact-intro">
+                    I'm seeking opportunities to bring my web development skills and passion for immersive technologies
+                    to a marketing agency environment. Let's discuss how I can contribute to your team!
+                </p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:Terence.Honeyford@Outlook.com">Terence.Honeyford@Outlook.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-linkedin"></i></div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/terencehoneyford" target="_blank">linkedin.com/in/terencehoneyford</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-cube"></i></div>
+                        <div>
+                            <h4>Sketchfab</h4>
+                            <a href="https://sketchfab.com/tezeroth" target="_blank">sketchfab.com/tezeroth</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fab fa-github"></i></div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <a href="https://github.com/Tezeroth" target="_blank">github.com/Tezeroth</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tezz. Built with HTML, CSS, and JavaScript.</p>
+            <p class="footer-note">Passionate about WebXR, 3D modeling, and immersive web experiences.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
