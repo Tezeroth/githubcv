@@ -361,7 +361,8 @@ body.dark-mode .dark-mode-toggle .sun-icon {
     color: white;
     position: relative;
     overflow: hidden;
-    background: #1a1a2e; /* Fallback background */
+    /* Fallback gradient background for when WebGL is disabled */
+    background: linear-gradient(135deg, var(--theme-gradient-start), var(--theme-gradient-end));
 }
 
 /* WebGL Shader Canvas Background */
@@ -388,6 +389,16 @@ body.dark-mode .dark-mode-toggle .sun-icon {
     max-width: 900px;
     width: 90%;
     animation: fadeInUp 1s ease-out;
+}
+
+/* Fallback for browsers that don't support backdrop-filter (some mobile browsers) */
+@supports not (backdrop-filter: blur(20px)) {
+    .hero-glass-card {
+        background: rgba(255, 255, 255, 0.25);
+    }
+    body.dark-mode .hero-glass-card {
+        background: rgba(17, 24, 39, 0.7);
+    }
 }
 
 body.dark-mode .hero-glass-card {
@@ -1124,14 +1135,6 @@ body.dark-mode .project-link-small:hover {
         font-size: 2rem;
     }
 
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-info {
-        grid-template-columns: 1fr;
-    }
-
     .timeline::before {
         left: 10px;
     }
@@ -1148,8 +1151,32 @@ body.dark-mode .project-link-small:hover {
         grid-template-columns: 1fr;
     }
 
-    .contact-info {
-        grid-template-columns: 1fr;
+    /* Reduce glass card padding on mobile */
+    .hero-glass-card {
+        padding: 2rem 1.5rem;
+        width: 95%;
+    }
+
+    /* Improve touch targets on mobile */
+    .btn {
+        min-height: 44px;
+        padding: 1rem 1.5rem;
+    }
+
+    /* Better spacing for mobile */
+    section {
+        padding: 3rem 0;
+    }
+
+    /* Ensure hero background gradient is visible on mobile */
+    .hero {
+        background: linear-gradient(135deg, var(--theme-gradient-start), var(--theme-gradient-end));
+        padding: 6rem 1rem 3rem;
+    }
+
+    /* Ensure canvas doesn't interfere when hidden */
+    .shader-background {
+        pointer-events: none;
     }
 }
 
@@ -1162,17 +1189,48 @@ body.dark-mode .project-link-small:hover {
         padding: 1rem;
     }
 
+    .logo {
+        font-size: 1.25rem;
+    }
+
     .name {
         font-size: 2rem;
+        letter-spacing: -1px;
+    }
+
+    .greeting {
+        font-size: 1.1rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
     }
 
     .hero-buttons {
         flex-direction: column;
         width: 100%;
+        gap: 0.75rem;
     }
 
     .btn {
         width: 100%;
+    }
+
+    .hero-glass-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .skill-category {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+
+    .project-card {
+        padding: 1.5rem;
     }
 }
 

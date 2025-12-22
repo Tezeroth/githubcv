@@ -258,12 +258,45 @@ class ShaderBackground {
      */
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
-        if (!this.canvas) return;
+        this.gl = null;
+        this.isInitialized = false;
+
+        if (!this.canvas) {
+            console.warn('Canvas element not found');
+            return;
+        }
+
+        // Disable WebGL on mobile devices for better performance
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isLowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+
+        if (isMobile || isLowPowerDevice) {
+            console.log('WebGL disabled on mobile/low-power device for performance');
+            this.canvas.style.display = 'none';
+            this.isInitialized = false;
+            return;
+        }
 
         // Get WebGL context (try standard then experimental)
-        this.gl = this.canvas.getContext('webgl') || this.canvas.getContext('experimental-webgl');
+        try {
+            this.gl = this.canvas.getContext('webgl', {
+                alpha: false,
+                antialias: false,
+                powerPreference: 'high-performance'
+            }) || this.canvas.getContext('experimental-webgl', {
+                alpha: false,
+                antialias: false,
+                powerPreference: 'high-performance'
+            });
+        } catch (e) {
+            console.warn('WebGL context creation failed:', e);
+            this.gl = null;
+        }
+
         if (!this.gl) {
             console.warn('WebGL not supported, shader background disabled');
+            this.canvas.style.display = 'none';
+            this.isInitialized = false;
             return;
         }
 
@@ -282,9 +315,17 @@ class ShaderBackground {
         this.visibilityHandler = () => this.handleVisibilityChange();
 
         // Initialize shader program and start animation
-        this.init();
-        this.resize();
-        this.start();
+        try {
+            this.init();
+            this.resize();
+            this.start();
+            this.isInitialized = true;
+        } catch (e) {
+            console.error('WebGL initialization failed:', e);
+            this.canvas.style.display = 'none';
+            this.isInitialized = false;
+            return;
+        }
 
         // Setup event listeners for responsive behavior
         window.addEventListener('resize', this.resizeHandler);
@@ -484,6 +525,7 @@ class ShaderBackground {
      * Updates canvas dimensions and WebGL viewport
      */
     resize() {
+        if (!this.gl || !this.isInitialized) return;
         this.canvas.width = this.canvas.offsetWidth;
         this.canvas.height = this.canvas.offsetHeight;
         this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
@@ -495,7 +537,7 @@ class ShaderBackground {
      */
     animate() {
         // Safety check - don't animate if not ready or not running
-        if (!this.gl || !this.program || !this.isRunning) return;
+        if (!this.gl || !this.program || !this.isRunning || !this.isInitialized) return;
 
         const gl = this.gl;
         this.time += 0.016; // Increment time (~60fps)
@@ -525,6 +567,7 @@ class ShaderBackground {
      * Start the animation loop
      */
     start() {
+        if (!this.gl || !this.isInitialized) return;
         if (!this.isRunning && this.isVisible) {
             this.isRunning = true;
             this.animate();
@@ -576,6 +619,7 @@ class ShaderBackground {
      * @param {Object} colors - Color object with primary and secondary properties
      */
     updateTheme(colors) {
+        if (!this.isInitialized) return;
         this.currentColors = colors;
     }
 
@@ -587,12 +631,16 @@ class ShaderBackground {
         // Stop animation loop
         this.stop();
 
-        // Remove event listeners
-        window.removeEventListener('resize', this.resizeHandler);
-        document.removeEventListener('visibilitychange', this.visibilityHandler);
+        // Remove event listeners only if they were added
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+        }
+        if (this.visibilityHandler) {
+            document.removeEventListener('visibilitychange', this.visibilityHandler);
+        }
 
         // Clean up WebGL resources
-        if (this.gl) {
+        if (this.gl && this.isInitialized) {
             if (this.buffer) {
                 this.gl.deleteBuffer(this.buffer);
                 this.buffer = null;
@@ -606,6 +654,7 @@ class ShaderBackground {
         // Clear references to allow garbage collection
         this.gl = null;
         this.canvas = null;
+        this.isInitialized = false;
     }
 }
 
