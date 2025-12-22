@@ -27,12 +27,10 @@ const savedDarkMode = localStorage.getItem('theme') || 'light';
 
 // Apply saved theme on page load
 let currentThemeIndex = themes.indexOf(savedTheme);
-if (currentThemeIndex === -1) currentThemeIndex = 0;
+if (currentThemeIndex === -1) currentThemeIndex = 0; // Fallback to purple if invalid
 
 body.classList.add(`theme-${themes[currentThemeIndex]}`);
-if (themeNameSpan) {
-    themeNameSpan.textContent = themes[currentThemeIndex].charAt(0).toUpperCase() + themes[currentThemeIndex].slice(1);
-}
+themeNameSpan.textContent = themes[currentThemeIndex].charAt(0).toUpperCase() + themes[currentThemeIndex].slice(1);
 
 // Apply dark mode if previously enabled
 if (savedDarkMode === 'dark') {
@@ -42,37 +40,39 @@ if (savedDarkMode === 'dark') {
 /**
  * Theme toggle - Cycles through available color themes
  */
-if (themeToggle) {
-    themeToggle.addEventListener('click', () => {
-        body.classList.remove(`theme-${themes[currentThemeIndex]}`);
+themeToggle.addEventListener('click', () => {
+    // Remove current theme class
+    body.classList.remove(`theme-${themes[currentThemeIndex]}`);
 
-        currentThemeIndex = (currentThemeIndex + 1) % themes.length;
-        const newTheme = themes[currentThemeIndex];
+    // Cycle to next theme (wraps around to first theme after last)
+    currentThemeIndex = (currentThemeIndex + 1) % themes.length;
+    const newTheme = themes[currentThemeIndex];
 
-        body.classList.add(`theme-${newTheme}`);
+    // Apply new theme class
+    body.classList.add(`theme-${newTheme}`);
 
-        if (themeNameSpan) {
-            themeNameSpan.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
-        }
+    // Update button text to show current theme
+    themeNameSpan.textContent = newTheme.charAt(0).toUpperCase() + newTheme.slice(1);
 
-        localStorage.setItem('colorTheme', newTheme);
+    // Persist preference to localStorage
+    localStorage.setItem('colorTheme', newTheme);
 
-        if (window.shaderBackground && window.shaderBackground.updateTheme) {
-            window.shaderBackground.updateTheme(themeColors[newTheme]);
-        }
-    });
-}
+    // Update WebGL shader colors if shader is initialized
+    if (window.shaderBackground && window.shaderBackground.updateTheme) {
+        window.shaderBackground.updateTheme(themeColors[newTheme]);
+    }
+});
 
 /**
  * Dark mode toggle - Switches between light and dark mode
  */
-if (darkModeToggle) {
-    darkModeToggle.addEventListener('click', () => {
-        body.classList.toggle('dark-mode');
-        const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
-    });
-}
+darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+
+    // Persist preference to localStorage
+    const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    localStorage.setItem('theme', theme);
+});
 
 /**
  * ===== NAVBAR SCROLL EFFECT =====
@@ -80,16 +80,19 @@ if (darkModeToggle) {
  * Triggers background and shadow effects via CSS
  */
 const navbar = document.getElementById('navbar');
+let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
-    if (!navbar) return;
     const currentScroll = window.pageYOffset;
 
+    // Add scrolled class after scrolling 50px down
     if (currentScroll > 50) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
+
+    lastScroll = currentScroll;
 });
 
 /**
@@ -99,20 +102,18 @@ window.addEventListener('scroll', () => {
 const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
 const navMenu = document.querySelector('.nav-menu');
 
-// Toggle menu open/close (with null check for safety)
-if (mobileMenuToggle && navMenu) {
-    mobileMenuToggle.addEventListener('click', () => {
-        mobileMenuToggle.classList.toggle('active');
-        navMenu.classList.toggle('active');
-    });
-}
+// Toggle menu open/close
+mobileMenuToggle.addEventListener('click', () => {
+    mobileMenuToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});
 
 // Close mobile menu when clicking on any navigation link
 const navLinks = document.querySelectorAll('.nav-link');
 navLinks.forEach(link => {
     link.addEventListener('click', () => {
-        if (mobileMenuToggle) mobileMenuToggle.classList.remove('active');
-        if (navMenu) navMenu.classList.remove('active');
+        mobileMenuToggle.classList.remove('active');
+        navMenu.classList.remove('active');
     });
 });
 
@@ -265,13 +266,12 @@ class ShaderBackground {
             return;
         }
 
-        // Disable WebGL on mobile/touch devices for better performance
+        // Disable WebGL on mobile devices for better performance
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        const isLowPowerDevice = typeof navigator.hardwareConcurrency === 'number' && navigator.hardwareConcurrency < 4;
+        const isLowPowerDevice = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
 
-        if (isMobile || isTouchDevice || isLowPowerDevice) {
-            console.log('WebGL disabled for mobile/touch/low-power device');
+        if (isMobile || isLowPowerDevice) {
+            console.log('WebGL disabled on mobile/low-power device for performance');
             this.canvas.style.display = 'none';
             this.isInitialized = false;
             return;
@@ -669,9 +669,12 @@ document.addEventListener('DOMContentLoaded', () => {
 /**
  * ===== CONSOLE EASTER EGG =====
  * Friendly message for anyone inspecting the code
+ * Shows personality and technical skills
  */
 console.log('%c👋 Hello, Interviewer!', 'font-size: 20px; font-weight: bold; color: #2563eb;');
 console.log('%cThanks for checking out my CV landing page!', 'font-size: 14px; color: #6b7280;');
-console.log('%cThis page demonstrates my skills in HTML, CSS, and JavaScript.', 'font-size: 14px; color: #6b7280;');
+console.log('%cThis page demonstrates my skills in HTML, CSS, and JavaScript by abusing ai.', 'font-size: 14px; color: #6b7280;');
 console.log('%cI specialize in WebXR, A-Frame, and 3D web experiences! 🥽', 'font-size: 14px; color: #10b981;');
+console.log('%cCheck out the raymarched WebGL shader in the hero section! 🎨', 'font-size: 14px; color: #10b981;');
 console.log('%cFeel free to explore the code! 🚀', 'font-size: 14px; color: #10b981;');
+
