@@ -15,7 +15,22 @@
     <!-- ===== NAVIGATION BAR ===== -->
     <nav id="navbar">
         <div class="nav-container">
-            <div class="logo">Terence Honeyford</div>
+            <div class="logo">
+
+                <svg class="logo-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 64 64" fill="none">
+                    <!-- Outer hexagon representing the web/digital space -->
+                    <path d="M32 4L56 18V46L32 60L8 46V18L32 4Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <!-- Inner 3D cube representing 3D/VR -->
+                    <path d="M32 20L44 27V41L32 48L20 41V27L32 20Z" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <!-- Central connection point -->
+                    <circle cx="32" cy="34" r="4" fill="currentColor"/>
+                    <!-- VR headset suggestion at top -->
+                    <path d="M24 14H40" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="27" cy="14" r="2" fill="currentColor"/>
+                    <circle cx="37" cy="14" r="2" fill="currentColor"/>
+                </svg>
+                <span> Terence Honeyford</span>
+            </div>
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link">Home</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
@@ -95,19 +110,39 @@
                 </div>
                 <div class="about-highlights">
                     <div class="highlight-card">
-                        <div class="highlight-icon">🎯</div>
+                        <div class="highlight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 6v6l4 2"/>
+                                <path d="M8 12h.01"/>
+                                <path d="M16 12h.01"/>
+                            </svg>
+                        </div>
                         <h3>Detail-Oriented</h3>
                         <p>Committed to accuracy and precision in every project</p>
                     </div>
                     <div class="highlight-card">
-                        <div class="highlight-icon">🤝</div>
+                        <div class="highlight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
                         <h3>Collaborative</h3>
                         <p>Friendly and open to discussing solutions</p>
                     </div>
                     <div class="highlight-card">
-                        <div class="highlight-icon">🥽</div>
+                        <div class="highlight-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 8a4 4 0 0 1 4-4h12a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-1l-2 3-2-3H6a4 4 0 0 1-4-4V8z"/>
+                                <circle cx="8" cy="10" r="2"/>
+                                <circle cx="16" cy="10" r="2"/>
+                            </svg>
+                        </div>
                         <h3>VR Enthusiast</h3>
-                        <p>Creating immersive WebVR and 3D experiences</p>
+                        <p>Creating immersive WebXR and 3D experiences</p>
                     </div>
                 </div>
             </div>
@@ -231,7 +266,10 @@
                         <span>✓ Cross-Platform</span>
                         <span>✓ Browser-Based</span>
                     </div>
-                    <a href="https://tezeroth.github.io/1k-PBR-Lighting-test/" target="_blank" rel="noopener noreferrer" class="project-link">View Live Demo →</a>
+                    <div class="project-links">
+                        <a href="https://tezeroth.github.io/GLSL-Shader-conversion-test/" target="_blank" rel="noopener noreferrer" class="project-link">Snowy Mountain Scene →</a>
+                        <a href="https://tezeroth.github.io/PBR-and-Equirectangular-skybox-with-lights-/" target="_blank" rel="noopener noreferrer" class="project-link">3D Models and Lighting Example →</a>
+                    </div>
                 </div>
 
                 <div class="project-card">

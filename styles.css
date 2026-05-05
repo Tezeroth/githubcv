@@ -124,6 +124,10 @@ body.dark-mode .contact-item h4 {
     color: #ffffff;
 }
 
+body.dark-mode .timeline-date {
+    color: var(--bg-primary);
+}
+
 body.dark-mode .skill-name {
     color: #ffffff;
 }
@@ -204,10 +208,18 @@ body.dark-mode #navbar {
 }
 
 .logo {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;
     color: var(--primary-color);
     letter-spacing: -0.5px;
+}
+
+.logo-icon {
+    display: block;
+    transform: translateY(25%);
 }
 
 .nav-menu {
@@ -950,6 +962,10 @@ body.dark-mode .project-link {
 
 body.dark-mode .project-link:hover {
     color: #93c5fd;
+}
+
+body.dark-mode .project-tag {
+    color: var(--bg-primary);
 }
 
 .project-links {
