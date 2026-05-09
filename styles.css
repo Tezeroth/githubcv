@@ -478,12 +478,24 @@ body.dark-mode .hero-description {
     margin-right: auto;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+    .hero-note {
+        margin-top: 1rem;
+        text-align: center;
+    }
+
+    .hero-note a {
+        font-size: 0.95rem;
+        color: var(--primary-color);
+        text-decoration: none;
+        border-bottom: 1px dashed currentColor;
+        opacity: 0.75;
+        transition: opacity 0.25s ease, border-color 0.25s ease;
+    }
+
+    .hero-note a:hover {
+        opacity: 1;
+        border-color: transparent;
+    }
 
 .btn {
     padding: 0.875rem 2rem;
