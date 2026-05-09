@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" rx="40" fill="url(#bg)" />
+  <path d="M120 400 C220 250, 420 200, 520 120" fill="none" stroke="#38bdf8" stroke-width="16" stroke-linecap="round" opacity="0.85"/>
+  <path d="M160 280 C260 180, 460 160, 560 100" fill="none" stroke="#60a5fa" stroke-width="12" stroke-dasharray="24 14" opacity="0.8"/>
+  <circle cx="170" cy="470" r="22" fill="#38bdf8" opacity="0.9"/>
+  <circle cx="620" cy="180" r="24" fill="#60a5fa" opacity="0.9"/>
+  <text x="50%" y="58%" dominant-baseline="middle" text-anchor="middle" fill="#cbd5e1" font-family="Inter, sans-serif" font-size="42" font-weight="700">Kinetic Typography</text>
+</svg>

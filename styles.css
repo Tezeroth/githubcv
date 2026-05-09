@@ -892,6 +892,29 @@ body.dark-mode .skill-list li {
     height: 200px;
     overflow: hidden;
     background: var(--bg-primary);
+    position: relative;
+}
+
+.project-image--coming-soon {
+    border: 3px dashed var(--primary-color);
+    padding: 0.35rem;
+    box-sizing: border-box;
+}
+
+.project-image--coming-soon::after {
+    content: 'COMING SOON';
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-color);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
 .project-image img {
